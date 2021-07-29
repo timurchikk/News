@@ -1,4 +1,8 @@
-{% include 'inc/_nav.html' %}
+{% extends 'base.html' %}
+
+{% block title %}
+{{ category.title }} :: {{ block.super }}
+{% endblock %}
 
 {% block sidebar %}
 {% include 'inc/_sidebar.html' %}
@@ -20,7 +24,7 @@
             <div class="media-body">
                 <h5 class="card-title">{{ item.title }}</h5>
                 <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:50 }}</p>
-                <a href="#" class="btn btn-primary">Read more...</a>
+                <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more...</a>
             </div>
         </div>
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
+from django.urls import reverse
 
 
 class News(models.Model):
@@ -12,7 +13,10 @@ class News(models.Model):
     is_published = models.BooleanField(default=True)
     category = ForeignKey('Category', on_delete=CASCADE)
 
-    def __str__ (self):
+    def get_absolute_url(self):
+        return reverse('view_news', kwargs={"pk" : self.pk})
+
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -20,10 +24,11 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
         ordering = ['-create_at']
 
+
 class Category(models.Model):
     title = models.CharField(max_length=255)
 
-    def __str__ (self):
+    def __str__(self):
         return self.title
 
     class Meta:
